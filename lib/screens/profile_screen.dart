@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
-  // Replace with real data
+  // Replace with real data test
   final bool isOwnProfile = true;
   final bool isCoach = true;
 
