@@ -1,4 +1,6 @@
+// lib/screens/home_screen.dart
 import 'package:flutter/material.dart';
+import '../utils/asset_manager.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -6,12 +8,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Use an empty or branding AppBar if you want.
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        toolbarHeight:
-            0, // Hides AppBar visually, but keeps system spacing safe.
+        toolbarHeight: 0,
       ),
       body: SafeArea(
         child: Column(
@@ -26,20 +26,37 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "Fitness Social App",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  Row(
+                    children: [
+                      // App Logo
+                      Image.asset(
+                        AssetManager.appLogo,
+                        height: 32,
+                        width: 32,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.fitness_center, size: 32);
+                        },
+                      ),
+                      const SizedBox(width: 8),
+                      const Text(
+                        "FitSocial",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                   Row(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.message),
+                        icon: const Icon(Icons.message),
                         onPressed: () {
                           // Message action
                         },
                       ),
                       IconButton(
-                        icon: Icon(Icons.notifications),
+                        icon: const Icon(Icons.notifications),
                         onPressed: () {
                           // Notification action
                         },
@@ -49,40 +66,54 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            // Optionally, your branding/subtitle
-            Padding(
-              padding: const EdgeInsets.only(left: 16, bottom: 4),
-              child: Text(
-                "FitSocial",
-                style: TextStyle(fontSize: 18, color: Colors.grey[600]),
-              ),
-            ),
-            // Stories
+
+            // Stories Section
             SizedBox(
-              height: 80,
+              height: 100,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 10,
+                itemCount: 8,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 8,
                       vertical: 16,
                     ),
-                    child: CircleAvatar(
-                      radius: 28,
-                      backgroundColor: Colors.purple[100],
-                      // Use AssetImage only if image exists!
-                      // backgroundImage: AssetImage('assets/avatar${index % 5}.png'),
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          radius: 28,
+                          backgroundImage: AssetImage(
+                            AssetManager.getProfileImageByIndex(
+                              index % AssetManager.profileImages.length,
+                            ),
+                          ),
+                          onBackgroundImageError: (exception, stackTrace) {
+                            // Handle image load error
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.blue, width: 2),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Story ${index + 1}',
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ],
                     ),
                   );
                 },
               ),
             ),
-            // Feed (Expanded so it takes the rest of the space)
+
+            // Feed Section
             Expanded(
               child: ListView.builder(
-                itemCount: 5,
+                itemCount: 10,
                 itemBuilder: (context, index) {
                   return Card(
                     margin: const EdgeInsets.symmetric(
@@ -95,26 +126,64 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Post Header
                         ListTile(
                           leading: CircleAvatar(
-                            backgroundColor: Colors.purple[100],
-                            // backgroundImage: AssetImage('assets/avatar${index % 5}.png'),
-                          ),
-                          title: Text("Trainer Name $index"),
-                          subtitle: Text("2 hours ago"),
-                          trailing: Icon(Icons.more_vert),
-                        ),
-                        // Use a placeholder if image not found
-                        Container(
-                          height: 200,
-                          color: Colors.grey[300],
-                          child: Center(
-                            child: Text(
-                              "Image Placeholder",
-                              style: TextStyle(color: Colors.grey[700]),
+                            backgroundImage: AssetImage(
+                              AssetManager.getProfileImageByIndex(
+                                index % AssetManager.profileImages.length,
+                              ),
                             ),
+                            onBackgroundImageError: (exception, stackTrace) {
+                              // Handle error
+                            },
+                          ),
+                          title: Text(_getTrainerName(index)),
+                          subtitle: Text("${2 + index} hours ago"),
+                          trailing: const Icon(Icons.more_vert),
+                        ),
+
+                        // Post Image
+                        ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(0),
+                            bottom: Radius.circular(0),
+                          ),
+                          child: Image.asset(
+                            AssetManager.getPostImageByIndex(
+                              index % AssetManager.allPostImages.length,
+                            ),
+                            height: 250,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                height: 250,
+                                color: Colors.grey[300],
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.image_not_supported,
+                                        size: 50,
+                                        color: Colors.grey[600],
+                                      ),
+                                      Text(
+                                        "Image not found",
+                                        style: TextStyle(
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ),
+
+                        // Action Buttons
                         Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 16,
@@ -123,27 +192,64 @@ class HomeScreen extends StatelessWidget {
                           child: Row(
                             children: [
                               IconButton(
-                                icon: Icon(Icons.favorite_border),
+                                icon: const Icon(Icons.favorite_border),
                                 onPressed: () {},
                               ),
                               IconButton(
-                                icon: Icon(Icons.comment_outlined),
+                                icon: const Icon(Icons.comment_outlined),
                                 onPressed: () {},
                               ),
                               IconButton(
-                                icon: Icon(Icons.share_outlined),
+                                icon: const Icon(Icons.share_outlined),
+                                onPressed: () {},
+                              ),
+                              const Spacer(),
+                              IconButton(
+                                icon: const Icon(Icons.bookmark_border),
                                 onPressed: () {},
                               ),
                             ],
                           ),
                         ),
+
+                        // Post Content
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            "Awesome workout session today! 💪 #fitness",
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${45 + index * 3} likes",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              RichText(
+                                text: TextSpan(
+                                  style: DefaultTextStyle.of(context).style,
+                                  children: [
+                                    TextSpan(
+                                      text: _getTrainerName(index),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${_getPostCaption(index)}',
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                "View all ${12 + index} comments",
+                                style: const TextStyle(color: Colors.grey),
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                       ],
                     ),
                   );
@@ -153,17 +259,38 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: 'My Journey',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      ),
     );
+  }
+
+  String _getTrainerName(int index) {
+    const names = [
+      'Coach Mike',
+      'Trainer Anna',
+      'Fitness Pro',
+      'Gym Buddy',
+      'Yoga Master',
+      'Cardio King',
+      'Strength Coach',
+      'Nutrition Expert',
+      'Personal Trainer',
+      'Wellness Guide',
+    ];
+    return names[index % names.length];
+  }
+
+  String _getPostCaption(int index) {
+    const captions = [
+      'Just crushed today\'s workout! 💪 #StrengthTraining',
+      'Morning yoga session complete ✨ #YogaLife',
+      'New personal record on deadlifts! 🔥',
+      'Healthy meal prep Sunday 🥗 #MealPrep',
+      'Cardio day = endorphin day! 🏃‍♂️',
+      'Flexibility work paying off 🤸‍♀️',
+      'Pushing limits, breaking barriers 💯',
+      'Nutrition is 80% of the game 🍎',
+      'Consistency beats perfection 📈',
+      'Strong mind, strong body 🧠💪',
+    ];
+    return captions[index % captions.length];
   }
 }
