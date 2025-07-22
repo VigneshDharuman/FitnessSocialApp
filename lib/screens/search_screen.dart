@@ -25,10 +25,12 @@ class SearchScreen extends StatelessWidget {
     {"name": "Mike G.", "img": "https://randomuser.me/api/portraits/men/2.jpg"},
   ];
 
-  final List<Map<String, String>> popularPosts = const [
-    {"img": "https://source.unsplash.com/400x400/?fitness,workout"},
-    {"img": "https://source.unsplash.com/400x400/?yoga,exercise"},
-    // Add more posts as needed
+  // FIXED: Replace deprecated Unsplash URLs with placeholder containers
+  final List<Map<String, dynamic>> popularPosts = const [
+    {"type": "placeholder", "title": "Fitness Workout"},
+    {"type": "placeholder", "title": "Yoga Exercise"},
+    {"type": "placeholder", "title": "Cardio Training"},
+    {"type": "placeholder", "title": "Strength Training"},
   ];
 
   @override
@@ -116,7 +118,7 @@ class SearchScreen extends StatelessWidget {
               ),
             ),
 
-            // Popular posts grid
+            // Popular posts grid - FIXED: Using placeholder containers
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Text(
@@ -135,11 +137,31 @@ class SearchScreen extends StatelessWidget {
                 mainAxisSpacing: 8,
               ),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              itemBuilder: (ctx, i) => ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.network(
-                  popularPosts[i]['img']!,
-                  fit: BoxFit.cover,
+              itemBuilder: (ctx, i) => Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Colors.blue[300]!, Colors.purple[300]!],
+                  ),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.fitness_center, size: 40, color: Colors.white),
+                      SizedBox(height: 8),
+                      Text(
+                        popularPosts[i]['title']!,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

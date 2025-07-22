@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
-  // Replace with real data
+  // Replace with real data test
   final bool isOwnProfile = true;
   final bool isCoach = true;
 
@@ -26,12 +26,11 @@ class ProfileScreen extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Profile Pic
+                  // FIXED: Use placeholder instead of missing asset
                   CircleAvatar(
                     radius: 48,
-                    backgroundImage: AssetImage(
-                      'assets/images/profile.jpg',
-                    ), // Replace with NetworkImage for real user
+                    backgroundColor: Colors.blue[200],
+                    child: Icon(Icons.person, size: 50, color: Colors.white),
                   ),
                   SizedBox(width: 20),
                   Expanded(
@@ -54,31 +53,42 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 12),
-                        Row(
-                          children: [
-                            _buildStat('Posts', '120'),
-                            _buildStat('Followers', '5.2k'),
-                            _buildStat('Following', '180'),
-                            if (isCoach) _buildStat('Clients', '14'),
-                          ],
+                        // FIXED: Made stats scrollable horizontally to prevent overflow
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              _buildStat('Posts', '120'),
+                              _buildStat('Followers', '5.2k'),
+                              _buildStat('Following', '180'),
+                              if (isCoach) _buildStat('Clients', '14'),
+                            ],
+                          ),
                         ),
                         SizedBox(height: 16),
+                        // FIXED: Made buttons responsive with Wrap
                         if (isOwnProfile)
-                          OutlinedButton(
-                            onPressed: () {},
-                            child: Text('Edit Profile'),
+                          SizedBox(
+                            width: double.infinity,
+                            child: OutlinedButton(
+                              onPressed: () {},
+                              child: Text('Edit Profile'),
+                            ),
                           )
-                        else ...[
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Text('Follow'),
+                        else
+                          Wrap(
+                            spacing: 8,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: Text('Follow'),
+                              ),
+                              OutlinedButton(
+                                onPressed: () {},
+                                child: Text('Message'),
+                              ),
+                            ],
                           ),
-                          SizedBox(width: 8),
-                          OutlinedButton(
-                            onPressed: () {},
-                            child: Text('Message'),
-                          ),
-                        ],
                       ],
                     ),
                   ),
@@ -102,8 +112,9 @@ class ProfileScreen extends StatelessWidget {
                         Tab(icon: Icon(Icons.group), text: 'Clients'),
                     ],
                   ),
+                  // FIXED: Reduced height to prevent overflow
                   SizedBox(
-                    height: 450,
+                    height: 400, // Reduced from 450
                     child: TabBarView(
                       children: [
                         _buildPostsGrid(),
@@ -115,6 +126,8 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
+            // Add padding at bottom
+            SizedBox(height: 20),
           ],
         ),
       ),
@@ -175,7 +188,10 @@ class ProfileScreen extends StatelessWidget {
         mainAxisSpacing: 6,
       ),
       itemBuilder: (context, index) => Container(
-        color: Colors.grey[300],
+        decoration: BoxDecoration(
+          color: Colors.grey[300],
+          borderRadius: BorderRadius.circular(8),
+        ),
         child: Icon(Icons.image, size: 40, color: Colors.grey[600]),
       ),
     );
@@ -183,48 +199,57 @@ class ProfileScreen extends StatelessWidget {
 
   // Progress Tab (dummy)
   Widget _buildProgressTab() {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Progress Photos',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 16),
-          SizedBox(
-            height: 120,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: 4,
-              separatorBuilder: (_, __) => SizedBox(width: 10),
-              itemBuilder: (context, i) => Container(
-                width: 90,
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(12),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(
-                      'assets/images/progress${i + 1}.jpg',
-                    ), // Dummy images
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 20),
+            Text(
+              'Progress Photos',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 16),
+            SizedBox(
+              height: 120,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: 4,
+                separatorBuilder: (_, __) => SizedBox(width: 10),
+                itemBuilder: (context, i) => Container(
+                  width: 90,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.photo_camera,
+                        size: 30,
+                        color: Colors.grey[600],
+                      ),
+                      SizedBox(height: 8),
+                      Text('Week ${i + 1}', style: TextStyle(fontSize: 12)),
+                    ],
                   ),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 24),
-          Text(
-            'Weight: 72kg   |   Body Fat: 12%',
-            style: TextStyle(fontSize: 15),
-          ),
-          SizedBox(height: 18),
-          OutlinedButton.icon(
-            onPressed: () {},
-            icon: Icon(Icons.add),
-            label: Text('Update Progress'),
-          ),
-        ],
+            SizedBox(height: 24),
+            Text(
+              'Weight: 72kg   |   Body Fat: 12%',
+              style: TextStyle(fontSize: 15),
+            ),
+            SizedBox(height: 18),
+            OutlinedButton.icon(
+              onPressed: () {},
+              icon: Icon(Icons.add),
+              label: Text('Update Progress'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -235,7 +260,10 @@ class ProfileScreen extends StatelessWidget {
       padding: EdgeInsets.all(16),
       itemCount: 6,
       itemBuilder: (context, i) => ListTile(
-        leading: CircleAvatar(child: Text('C${i + 1}')),
+        leading: CircleAvatar(
+          backgroundColor: Colors.blue[200],
+          child: Text('C${i + 1}'),
+        ),
         title: Text('Client ${i + 1}'),
         subtitle: Text('Progress: 4/12 weeks'),
         trailing: Icon(Icons.arrow_forward_ios, size: 18),
