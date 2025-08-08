@@ -150,4 +150,3 @@ echo ""
 echo "📱 Test command: flutter run -d chrome"
 
 # Make script executable
-chmod +x setup_local_images.sh

@@ -165,9 +165,26 @@ class MessagesScreen extends StatelessWidget {
                     children: [
                       Stack(
                         children: [
-                          CircleAvatar(
-                            radius: 24,
-                            backgroundImage: AssetImage(user['avatarUrl']!),
+                          Container(
+                            width: 48,
+                            height: 48,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.grey,
+                            ),
+                            child: ClipOval(
+                              child: Image.asset(
+                                user['avatarUrl']!,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return const Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                    size: 24,
+                                  );
+                                },
+                              ),
+                            ),
                           ),
                           Positioned(
                             bottom: 0,
@@ -209,9 +226,26 @@ class MessagesScreen extends StatelessWidget {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       leading: Stack(
         children: [
-          CircleAvatar(
-            radius: 28,
-            backgroundImage: AssetImage(msg['avatarUrl']!),
+          Container(
+            width: 56,
+            height: 56,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey,
+            ),
+            child: ClipOval(
+              child: Image.asset(
+                msg['avatarUrl']!,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 32,
+                  );
+                },
+              ),
+            ),
           ),
           if (msg['isOnline'] == true)
             Positioned(
