@@ -255,8 +255,8 @@ class WelcomeScreen extends StatelessWidget {
                                 const TextSpan(text: ' and '),
                                 TextSpan(
                                   text: 'Privacy Policy',
-                                  style: TextStyle(
-                                    color: const Color(0xFF5f41c4),
+                                  style: const TextStyle(
+                                    color: Color(0xFF5f41c4),
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -270,8 +270,8 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
