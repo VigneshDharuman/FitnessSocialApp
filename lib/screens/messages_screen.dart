@@ -364,7 +364,7 @@ class MessagesScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            AssetManager.appLogo,
+            AssetManager.thriveSpaceLogo,
             width: 80,
             height: 80,
             color: Colors.grey[300],

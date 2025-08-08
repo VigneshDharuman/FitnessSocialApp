@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../widgets/community_logo.dart';
+import '../../utils/asset_manager.dart';
 
 class SignupScreen extends StatefulWidget {
   final Function(Map<String, dynamic>) onSignUp;
@@ -101,11 +101,35 @@ class _SignupScreenState extends State<SignupScreen> {
                 Center(
                   child: Column(
                     children: [
-                      const CommunityLogo(
-                        size: 80,
-                        borderColor: Color(0xFF22c55e),
-                        iconColor: Color(0xFF22c55e),
-                        borderWidth: 3,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(40),
+                        child: Image.asset(
+                          AssetManager.thriveSpaceLogo,
+                          width: 80,
+                          height: 80,
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              width: 80,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF4ade80),
+                                borderRadius: BorderRadius.circular(40),
+                                border: Border.all(
+                                  color: const Color(0xFF22c55e),
+                                  width: 3,
+                                ),
+                              ),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.eco,
+                                  color: Color(0xFF166534),
+                                  size: 48,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
 
                       const SizedBox(height: 24),

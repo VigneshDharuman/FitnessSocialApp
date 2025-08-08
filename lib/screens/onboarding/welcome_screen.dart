@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../widgets/community_logo.dart';
+import '../../utils/asset_manager.dart';
 
 class WelcomeScreen extends StatelessWidget {
   final VoidCallback onGetStarted;
@@ -93,12 +93,36 @@ class WelcomeScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              child: const Center(
-                                child: CommunityLogo(
-                                  size: 80,
-                                  borderColor: Color(0xFF22c55e),
-                                  iconColor: Color(0xFF22c55e),
-                                  borderWidth: 3,
+                              child: Center(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.asset(
+                                    AssetManager.thriveSpaceLogo,
+                                    width: 80,
+                                    height: 80,
+                                    fit: BoxFit.contain,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Container(
+                                        width: 80,
+                                        height: 80,
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFF4ade80),
+                                          borderRadius: BorderRadius.circular(20),
+                                          border: Border.all(
+                                            color: const Color(0xFF22c55e),
+                                            width: 3,
+                                          ),
+                                        ),
+                                        child: const Center(
+                                          child: Icon(
+                                            Icons.eco,
+                                            color: Color(0xFF166534),
+                                            size: 40,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                             ),

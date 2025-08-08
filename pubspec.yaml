@@ -58,6 +58,7 @@ flutter:
     # Branding Assets
     - assets/images/branding/
     - assets/images/branding/app_logo.png
+    - assets/images/branding/thrivespace_logo.png
     - assets/images/branding/splash_background.jpg
     
     # Coach Profiles

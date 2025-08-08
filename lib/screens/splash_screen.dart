@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/community_logo.dart';
+import '../utils/asset_manager.dart';
 
 class SplashScreen extends StatefulWidget {
   final VoidCallback onComplete;
@@ -196,12 +196,36 @@ class _SplashScreenState extends State<SplashScreen>
                                 ),
                               ],
                             ),
-                            child: const Center(
-                              child: CommunityLogo(
-                                size: 64,
-                                borderColor: Color(0xFF22c55e),
-                                iconColor: Color(0xFF22c55e),
-                                borderWidth: 2,
+                            child: Center(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Image.asset(
+                                  AssetManager.thriveSpaceLogo,
+                                  width: 64,
+                                  height: 64,
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      width: 64,
+                                      height: 64,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF4ade80),
+                                        borderRadius: BorderRadius.circular(16),
+                                        border: Border.all(
+                                          color: const Color(0xFF22c55e),
+                                          width: 2,
+                                        ),
+                                      ),
+                                      child: const Center(
+                                        child: Icon(
+                                          Icons.eco,
+                                          color: Color(0xFF166534),
+                                          size: 32,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),
