@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils/asset_manager.dart';
+import '../widgets/thrive_space_logo.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -20,35 +21,11 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 children: [
                   // ThriveSpace Logo
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(
-                      AssetManager.thriveSpaceLogo,
-                      width: 40,
-                      height: 40,
-                      fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF4ade80),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: const Color(0xFF22c55e),
-                              width: 2,
-                            ),
-                          ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.eco,
-                              color: Color(0xFF166534),
-                              size: 24,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                  const ThriveSpaceLogo(
+                    size: 40,
+                    primaryColor: Color(0xFF22c55e),
+                    secondaryColor: Color(0xFF0891b2),
+                    backgroundColor: Colors.white,
                   ),
                   const SizedBox(width: 12),
                   Column(

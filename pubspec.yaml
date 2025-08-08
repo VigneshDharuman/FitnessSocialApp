@@ -1,5 +1,5 @@
-name: fitness_social_app
-description: "A new Flutter project."
+name: thrive_space
+description: "Transform Your Wellness Journey - ThriveSpace App"
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -58,7 +58,7 @@ flutter:
     # Branding Assets
     - assets/images/branding/
     - assets/images/branding/app_logo.png
-    - assets/images/branding/thrivespace_logo.png
+    - assets/images/branding/thrivespace_simple_logo.png
     - assets/images/branding/splash_background.jpg
     
     # Coach Profiles

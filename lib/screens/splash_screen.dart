@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils/asset_manager.dart';
+import '../widgets/thrive_space_logo.dart';
 
 class SplashScreen extends StatefulWidget {
   final VoidCallback onComplete;
@@ -197,35 +198,11 @@ class _SplashScreenState extends State<SplashScreen>
                               ],
                             ),
                             child: Center(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(16),
-                                child: Image.asset(
-                                  AssetManager.thriveSpaceLogo,
-                                  width: 64,
-                                  height: 64,
-                                  fit: BoxFit.contain,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      width: 64,
-                                      height: 64,
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xFF4ade80),
-                                        borderRadius: BorderRadius.circular(16),
-                                        border: Border.all(
-                                          color: const Color(0xFF22c55e),
-                                          width: 2,
-                                        ),
-                                      ),
-                                      child: const Center(
-                                        child: Icon(
-                                          Icons.eco,
-                                          color: Color(0xFF166534),
-                                          size: 32,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
+                              child: const ThriveSpaceLogo(
+                                size: 64,
+                                primaryColor: Color(0xFF22c55e),
+                                secondaryColor: Color(0xFF0891b2),
+                                backgroundColor: Colors.white,
                               ),
                             ),
                           ),
