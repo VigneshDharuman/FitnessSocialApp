@@ -39,6 +39,7 @@ class AssetManager {
 
   // Branding Assets
   static const String appLogo = '${_brandingPath}app_logo.png';
+  static const String thriveSpaceLogo = '${_brandingPath}thrivespace_simple_logo.png';
   static const String splashBackground =
       '${_brandingPath}splash_background.jpg';
 

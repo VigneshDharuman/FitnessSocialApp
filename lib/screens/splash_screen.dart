@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/community_logo.dart';
+import '../utils/asset_manager.dart';
+import '../widgets/thrive_space_logo.dart';
 
 class SplashScreen extends StatefulWidget {
   final VoidCallback onComplete;
@@ -196,12 +197,12 @@ class _SplashScreenState extends State<SplashScreen>
                                 ),
                               ],
                             ),
-                            child: const Center(
-                              child: CommunityLogo(
+                            child: Center(
+                              child: const ThriveSpaceLogo(
                                 size: 64,
-                                borderColor: Color(0xFF22c55e),
-                                iconColor: Color(0xFF22c55e),
-                                borderWidth: 2,
+                                primaryColor: Color(0xFF22c55e),
+                                secondaryColor: Color(0xFF0891b2),
+                                backgroundColor: Colors.white,
                               ),
                             ),
                           ),

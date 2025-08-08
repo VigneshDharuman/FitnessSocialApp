@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import '../utils/asset_manager.dart';
+import '../widgets/thrive_space_logo.dart';
 
 class MessagesScreen extends StatelessWidget {
   const MessagesScreen({super.key});
@@ -363,11 +364,11 @@ class MessagesScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            AssetManager.appLogo,
-            width: 80,
-            height: 80,
-            color: Colors.grey[300],
+          ThriveSpaceLogo(
+            size: 80,
+            primaryColor: Colors.grey[300],
+            secondaryColor: Colors.grey[400],
+            backgroundColor: Colors.white,
           ),
           const SizedBox(height: 24),
           const Text(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils/asset_manager.dart';
-import '../widgets/community_logo.dart';
+import '../widgets/thrive_space_logo.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -21,11 +21,11 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 children: [
                   // ThriveSpace Logo
-                  const CommunityLogo(
+                  const ThriveSpaceLogo(
                     size: 40,
-                    borderColor: Color(0xFF22c55e),
-                    iconColor: Color(0xFF22c55e),
-                    borderWidth: 2,
+                    primaryColor: Color(0xFF22c55e),
+                    secondaryColor: Color(0xFF0891b2),
+                    backgroundColor: Colors.white,
                   ),
                   const SizedBox(width: 12),
                   Column(

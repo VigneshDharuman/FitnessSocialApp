@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../widgets/community_logo.dart';
+import '../../widgets/thrive_space_logo.dart';
 
 class SignupScreen extends StatefulWidget {
   final Function(Map<String, dynamic>) onSignUp;
@@ -101,11 +101,11 @@ class _SignupScreenState extends State<SignupScreen> {
                 Center(
                   child: Column(
                     children: [
-                      const CommunityLogo(
+                      const ThriveSpaceLogo(
                         size: 80,
-                        borderColor: Color(0xFF22c55e),
-                        iconColor: Color(0xFF22c55e),
-                        borderWidth: 3,
+                        primaryColor: Color(0xFF22c55e),
+                        secondaryColor: Color(0xFF0891b2),
+                        backgroundColor: Colors.white,
                       ),
 
                       const SizedBox(height: 24),
