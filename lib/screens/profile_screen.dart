@@ -278,38 +278,61 @@ class ProfileScreen extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: progressPhotos.length,
               separatorBuilder: (_, __) => const SizedBox(width: 12),
-              itemBuilder: (context, i) => Column(
-                children: [
-                  Container(
-                    width: 100,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
+              itemBuilder: (context, i) => SizedBox(
+                width: 100,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.asset(
+                          progressPhotos[i]['image']!,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Icon(
+                                Icons.image_outlined,
+                                color: Colors.grey,
+                                size: 40,
+                              ),
+                            );
+                          },
                         ),
-                      ],
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        progressPhotos[i]['image']!,
-                        fit: BoxFit.cover,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    progressPhotos[i]['label']!,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      height: 24,
+                      child: Text(
+                        progressPhotos[i]['label']!,
+                        style: const TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

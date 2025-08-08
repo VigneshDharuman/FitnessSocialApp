@@ -1,5 +1,6 @@
 // Create file: lib/data/sample_data_manager.dart
 
+import 'package:flutter/material.dart';
 import '../utils/asset_manager.dart';
 
 class SampleDataManager {
